@@ -1,0 +1,15 @@
+{
+  "name": "m20",
+  "version": "1.0.0",
+  "main": "brock.js",
+  "scripts": {
+    "start": "node brock.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "jsdom": "^24.1.1",
+    "mqtt": "^5.10.0"
+  }
+}
