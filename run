@@ -1,0 +1,10 @@
+#!/bin/bash
+export PATH=/home/colin/.nvm/versions/node/v22.7.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+cd /home/colin/stuff/m20
+echo "" >>brock.log
+date >>brock.log
+nvm run --lts brock.js >>brock.log 2>&1
