@@ -63,9 +63,9 @@ void (async () => {
         // There was an error
         console.warn('Something went wrong getting Dover TAP status.', err);
     });
-    console.log(`TAP: ${JSON.stringify(tap_json)}`);
+    // console.log(`TAP: ${JSON.stringify(tap_json)}`);
 
-    short_text = ""; long_text = "";
+    short_text = ""; full_text = "";
     tap_json.members.forEach(element => {
         let t = element.tick_text.replace(/<[^>]*>?/gm,"");
         // console.log(`element: ${JSON.stringify(t)}`);
@@ -74,7 +74,7 @@ void (async () => {
             full_text = t;
         }
     });
-    if(!full_text) {
+    if(full_text.length == 0) {
         console.log("No TAP Info found")
         short_text = "Dover TAP is not in operation";
         full_text = "Not in operation";
