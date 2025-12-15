@@ -1,18 +1,22 @@
 
+require("dotenv").config();
 const jsdom = require('jsdom');
 const mqtt = require('mqtt');
 
 const brock_url = "https://nationalhighways.co.uk/travel-updates/operation-brock/";
 const tap_url = "https://www.kenttraffic.info/tw2.php";
 
-const mqtt_host = "mqtt://192.168.0.151";
+const BROCK_TOPIC = process.env.BROCK_TOPIC ?? "m20brock";
+const TAP_TOPIC = process.env.TAP_TOPIC ?? "a20tap";
+const mqtt_host = process.env.MQTT_HOST;
 const mqtt_opts = {
-    topic: "m20brock",
+	username: process.env.MQTT_USER,
+	password: process.env.MQTT_PASSWORD,
+	clientId: process.env.MQTT_CLIENTID,
 	retain: true
 };
 
 void (async () => {
-
     let brock_html;
     await fetch(brock_url).then(function (response) {
         // The API call was successful!
@@ -46,10 +50,10 @@ void (async () => {
     let client = mqtt.connect(mqtt_host, mqtt_opts);
 
     client.on("connect", () => {
-        client.publish("m20brock", JSON.stringify({
+        client.publish(BROCK_TOPIC, JSON.stringify({
             short_text: short_text,
 	    long_text: full_text.join('\n')
-        }), {retain: true});
+        }), mqtt_opts);
         client.end();
     });
 
@@ -86,10 +90,10 @@ void (async () => {
 
     client = mqtt.connect(mqtt_host, mqtt_opts);
     client.on("connect", () => {
-        client.publish("a20tap", JSON.stringify({
+        client.publish(TAP_TOPIC, JSON.stringify({
             short_text: short_text,
             long_text: full_text
-        }), {retain: true});
+        }), mqtt_opts);
         client.end();
     });
     

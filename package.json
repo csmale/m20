@@ -1,15 +1,16 @@
 {
   "name": "m20",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "main": "brock.js",
   "scripts": {
     "start": "node brock.js"
   },
-  "author": "",
+  "author": "colin.smale@gmail.com",
   "license": "ISC",
   "description": "",
-  "devDependencies": {
+  "dependencies": {
     "jsdom": "^24.1.1",
     "mqtt": "^5.10.0"
+    "dotenv": "^17.2.3"
   }
 }
