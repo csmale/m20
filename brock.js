@@ -7,7 +7,8 @@ const tap_url = "https://www.kenttraffic.info/tw2.php";
 
 const mqtt_host = "mqtt://192.168.0.151";
 const mqtt_opts = {
-    topic: "m20brock"
+    topic: "m20brock",
+	retain: true
 };
 
 void (async () => {
@@ -35,7 +36,7 @@ void (async () => {
         t1 = t.textContent.trim();
         if (t1.length > 0) {
             if (short_text.length == 0)
-                short_text = t1;
+                short_text = t1.split('\n')[0];
             full_text.push(t1);
         }
     };
@@ -46,7 +47,8 @@ void (async () => {
 
     client.on("connect", () => {
         client.publish("m20brock", JSON.stringify({
-            short_text: short_text
+            short_text: short_text,
+	    long_text: full_text.join('\n')
         }), {retain: true});
         client.end();
     });
